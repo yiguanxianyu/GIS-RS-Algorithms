@@ -12,6 +12,12 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+This script is used to rotate a GeoTiff image. The rotation angle is set
+by the variable theta, theta > 0 means counter-clockwise. The resampling
+method is set as nearest neighbor, other methods will cause the image to
+be blurred. The rotation center is the center of the image. In this version
+most metadata will be discarded.
 """
 
 import numpy as np
@@ -67,7 +73,7 @@ def get_rotated_image(band, nodata):
 
 
 for index in range(1, band_count + 1):
-    print(f"正在写入第{index}个波段")
+    print(f"Writing band {index}/{band_count}")
     input_band = dataset.GetRasterBand(index)
     output_band = target.GetRasterBand(index)
 
@@ -84,4 +90,4 @@ for index in range(1, band_count + 1):
 
 target = None
 dataset = None
-print("写入完成")
+print("All bands written")
